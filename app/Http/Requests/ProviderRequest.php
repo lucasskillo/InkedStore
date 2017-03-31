@@ -23,8 +23,12 @@ class ProviderRequest extends FormRequest
      */
     public function rules()
     {
+        $user = $this->route('user');
+        $id = $user ? $user->id:NULL;
         return [
-            //
+            'name' => "required|max:255",
+            'email' => "required|max:255|unique:users,email,$id",
+            'password' => "required|min:6|confirmed"
         ];
     }
 }

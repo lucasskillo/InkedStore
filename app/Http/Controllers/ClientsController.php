@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Client;
+use App\Http\Requests\ClientRequest;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
@@ -13,7 +15,8 @@ class ClientsController extends Controller
      */
     public function index()
     {
-        //
+        $clients = Client::query()->paginate(10);
+        return view('clients.index', compact('clients'));
     }
 
     /**
@@ -23,7 +26,7 @@ class ClientsController extends Controller
      */
     public function create()
     {
-        //
+        return view ('clients.create');
     }
 
     /**
@@ -32,20 +35,14 @@ class ClientsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
-        //
-    }
+        Client::create($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        \Session::flash('flash_message', 'Cliente criado com sucesso.');
+
+        return redirect()->route('clients.index');
+
     }
 
     /**
@@ -54,9 +51,9 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Client $client)
     {
-        //
+        return view('clients.edit', compact('client'));
     }
 
     /**
@@ -66,9 +63,12 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ClientRequest $request, Client $client)
     {
-        //
+        $client->fill($request->all());
+        $client->save();
+        \Session::flash('flash_message', 'Cliente editado com sucesso.');
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -77,8 +77,10 @@ class ClientsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        \Session::flash('flash_message', 'Cliente deletado com sucesso.');
+        return redirect()->route('clients.index');
     }
 }

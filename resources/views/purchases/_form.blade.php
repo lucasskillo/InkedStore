@@ -27,7 +27,7 @@
 
 {!! Html::openFormGroup('account_id', $errors) !!}
 {!! Form::label('account_id', 'Conta de Pagamento', ['class' => 'control-label']) !!}
-{!! Form::text('account_id', null, ['class' => 'form-control']) !!}
+{!! Form::select('account_id', $accounts, null, ['class' => 'selectpicker']) !!}
 {!! Form::error('account_id', $errors) !!}
 {!! Html::closeFormGroup() !!}
 

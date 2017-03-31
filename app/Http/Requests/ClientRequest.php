@@ -13,7 +13,7 @@ class ClientRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,13 @@ class ClientRequest extends FormRequest
      */
     public function rules()
     {
+        $user = $this->route('user');
+        $id = $user ? $user->id:NULL;
         return [
-            //
+            'name' => "required|max:255",
+            'address' => "required",
+            'taxid' => "required",
+            'phone' => 'required'
         ];
     }
 }

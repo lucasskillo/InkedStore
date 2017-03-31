@@ -17,6 +17,7 @@ Route::get('/', 'HomeController@index');
 
 Route::group(['middleware' => 'auth'], function(){
     Route::resource('users','UsersController', ['except' => 'show']);
+    Route::resource('clients','ClientsController', ['except' => 'show']);
     Route::resource('accounts','AccountsController', ['except' => 'show']);
     Route::resource('purchases','PurchasesController', ['except' => 'show']);
 });

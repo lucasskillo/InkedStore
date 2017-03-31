@@ -26,8 +26,8 @@ class AccountRequest extends FormRequest
         $account = $this->route('account');
         $id = $account ? $account->id:NULL;
         return [
-            'code' => "required|max:10|unique:accounts,code,$id",
-            'name' => "required|max:255",
+            'balance' => "required",
+            'name' => "required|max:255|unique:accounts,name,$id",
         ];
     }
 }

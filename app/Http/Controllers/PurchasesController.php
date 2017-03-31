@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Purchase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchasesController extends Controller
 {
@@ -25,7 +27,8 @@ class PurchasesController extends Controller
      */
     public function create()
     {
-        return view ('purchases.create');
+        $accounts = Account::pluck('name', 'id');
+        return view ('purchases.create', compact('accounts'));
     }
 
     /**

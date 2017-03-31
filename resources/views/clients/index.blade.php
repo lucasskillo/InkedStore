@@ -10,9 +10,9 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="header">
-                    <h4 class="title">Lista das Contas
+                    <h4 class="title">Lista de Clientes
                         <a style="position: relative;float: right;"
-                           href="{{ route('accounts.create') }}"><buttom class="btn btn-success">Novo</buttom></a>
+                           href="{{ route('clients.create') }}"><buttom class="btn btn-success">Novo</buttom></a>
                     </h4>
                     <!-- will be used to show any messages -->
                     @if (Session::has('flash_message'))
@@ -33,24 +33,26 @@
                         <tr>
                             <th>#</th>
                             <th>Nome</th>
+                            <th>Telefone</th>
                             <th class="disabled-sorting text-center">Ações</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($accounts as $account)
+                        @foreach ($clients as $client)
                             <tr>
-                                <th>{{ $account->id }}</th>
-                                <th>{{ $account->name }}</th>
+                                <th>{{ $client->id }}</th>
+                                <th>{{ $client->name }}</th>
+                                <th>{{ $client->phone }}</th>
                                 <td class="text-center">
-                                    <a href="{{route('accounts.edit', ['account' => $account->id])}}"
+                                    <a href="{{route('clients.edit', ['client' => $client->id])}}"
                                        class="btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 
                                     <?php $deleteform = "delete_form-{$loop->index}"; ?>
-                                    <a href="{{route('accounts.destroy', ['account' => $account->id])}}"
+                                    <a href="{{route('clients.destroy', ['client' => $client->id])}}"
                                        class="btn-danger btn-sm"
                                        onclick="event.preventDefault();document.getElementById('{{$deleteform}}').submit();">
                                         <i class="fa fa-close"></i></a>
-                                    {!! Form::open(['route'  => ['accounts.destroy', '$account' => $account],
+                                    {!! Form::open(['route'  => ['clients.destroy', '$client' => $client],
                                                     'method' => 'DELETE',
                                                     'id'     => $deleteform,
                                                     'style'  => 'display:none']) !!}
@@ -60,7 +62,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{$accounts->links()}}
+                    {{$clients->links()}}
                 </div><!-- end content-->
             </div><!--  end card  -->
         </div> <!-- end col-md-12 -->
